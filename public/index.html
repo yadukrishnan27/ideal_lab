@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDEALab Component Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="bg-glow-1" class="glow"></div>
+    <div id="bg-glow-2" class="glow"></div>
+
+    <div id="app-container">
+
+        <!-- Auth Section -->
+        <div id="auth-section" class="glass-panel visible">
+            <h2><i class="fa-solid fa-microchip"></i> IDEALab</h2>
+            <p class="subtitle">Component Borrowing System</p>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <p style="margin-bottom: 1rem; color: #a0aec0;">Please sign in with your Google account to continue.</p>
+                <button id="google-login-btn" class="btn primary-btn"><i class="fa-brands fa-google"></i> Sign in with
+                    Google</button>
+            </div>
+
+            <p id="auth-error" class="error-text"></p>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard-section" class="hidden">
+            <header class="glass-header">
+                <div class="brand">
+                    <i class="fa-solid fa-microchip"></i>
+                    <h1>IDEALab</h1>
+                </div>
+                <div class="user-info">
+                    <span id="welcome-msg"></span>
+                    <button id="profile-btn" class="btn outline-btn hidden"><i class="fa-solid fa-user-gear"></i>
+                        Profile</button>
+                    <button id="logout-btn" class="btn outline-btn"><i class="fa-solid fa-sign-out-alt"></i>
+                        Logout</button>
+                </div>
+            </header>
+
+            <main class="dashboard-content">
+                <!-- Admin Tools -->
+                <div id="admin-tools" class="hidden glass-panel">
+                    <h3><i class="fa-solid fa-toolbox"></i> Admin Control</h3>
+                    <div class="admin-actions">
+                        <form id="add-component-form" class="inline-form">
+                            <input type="text" id="new-comp-name" placeholder="Component Name" required>
+                            <input type="text" id="new-comp-desc" placeholder="Description" required>
+                            <input type="number" id="new-comp-qty" placeholder="Qty" min="1" required>
+                            <button type="submit" class="btn secondary-btn">Add Item</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="panels-wrapper">
+                    <!-- Inventory Panel -->
+                    <div class="panel glass-panel">
+                        <h3><i class="fa-solid fa-boxes-stacked"></i> Inventory</h3>
+                        <div id="inventory-list" class="item-list"></div>
+                    </div>
+
+                    <!-- Requests Panel -->
+                    <div class="panel glass-panel">
+                        <h3><i class="fa-solid fa-clipboard-list"></i> <span id="requests-title">My Requests</span></h3>
+                        <div id="requests-list" class="item-list"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Request Modal -->
+    <div id="request-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <span class="close-btn">&times;</span>
+            <h3 id="modal-comp-name">Request Component</h3>
+            <p id="modal-comp-desc"></p>
+            <form id="request-part-form">
+                <input type="hidden" id="modal-comp-id">
+                <div class="input-group">
+                    <input type="number" id="modal-comp-qty" placeholder="Quantity to borrow" min="1" required>
+                </div>
+                <button type="submit" class="btn primary-btn">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Modal (Admin) -->
+    <div id="edit-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <span class="close-edit-btn">&times;</span>
+            <h3>Edit Component</h3>
+            <form id="edit-part-form">
+                <input type="hidden" id="edit-comp-id">
+                <div class="input-group">
+                    <input type="text" id="edit-comp-name" placeholder="Component Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="edit-comp-desc" placeholder="Description" required>
+                </div>
+                <div class="input-group">
+                    <input type="number" id="edit-comp-qty" placeholder="Total Qty" min="1" required>
+                </div>
+                <!-- Available logic: total limits must not be less than currently borrowed... handled in backend -->
+                <button type="submit" class="btn warning-btn">Update Item</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Profile Modal -->
+    <div id="profile-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <span class="close-profile-btn">&times;</span>
+            <h3>My Profile Details</h3>
+            <p style="margin-bottom: 1rem; color: #a0aec0; font-size: 0.9rem;">Fill in your details to borrow items.</p>
+            <form id="profile-form">
+                <div class="input-group">
+                    <i class="fa-solid fa-id-card"></i>
+                    <input type="text" id="profile-college-id" placeholder="College ID (e.g. S1513)" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-phone"></i>
+                    <input type="text" id="profile-contact" placeholder="Contact Number" required>
+                </div>
+                <button type="submit" class="btn primary-btn">Save Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- External script -->
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
